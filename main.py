@@ -1,4 +1,5 @@
 from stats import *
+import sys
 
 def get_book_text(filepath):
     with open(filepath) as f:
@@ -9,7 +10,10 @@ def get_book_text(filepath):
 
 
 def main():
-    file_path = "books/frankenstein.txt"
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    file_path = sys.argv[1]
     txt = get_book_text(file_path)
     num = count_word(txt)
     chardict = count_char(txt)
@@ -21,7 +25,7 @@ def main():
 
     ##report print
     print("============ BOOKBOT ============")
-    print("Analyzing book found at {file_path}...")
+    print(f"Analyzing book found at {file_path}...")
     print("----------- Word Count ----------")
     print(f"Found {num} total words")
     print("--------- Character Count -------")
@@ -30,4 +34,5 @@ def main():
             continue
         print(f"{char["char"]}: {char["num"]}")
     print("============= END ===============")
+
 main()
